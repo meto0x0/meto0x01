@@ -2,49 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mohamed Atiaa | Research Portfolio</title>
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --primary-color: #0f62fe;
+      --bg-color: #f7f9fc;
+      --text-color: #333;
+      --card-bg: #fff;
+    }
+
+    * {
       margin: 0;
-      background-color: #f4f4f4;
-      color: #333;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
     header {
-      background-color: #222;
+      background-color: var(--primary-color);
       color: #fff;
-      padding: 20px;
+      padding: 60px 20px;
       text-align: center;
     }
+
+    header h1 {
+      font-size: 2.5rem;
+    }
+
+    #typed-text {
+      font-size: 1.3rem;
+      margin-top: 10px;
+      height: 30px;
+    }
+
     main {
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
-      padding: 20px;
-      background-color: white;
+      padding: 40px 20px;
     }
-    h1, h2, h3 {
-      color: #2c3e50;
+
+    section {
+      margin-bottom: 50px;
     }
-    .research-item {
-      border-left: 4px solid #2980b9;
-      padding: 10px 20px;
+
+    h2 {
+      font-size: 2rem;
       margin-bottom: 20px;
-      background: #ecf0f1;
+      color: var(--primary-color);
     }
-    footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #222;
-      color: #fff;
-      margin-top: 40px;
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeInUp 1s ease forwards;
     }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
     a {
-      color: #2980b9;
+      color: var(--primary-color);
       text-decoration: none;
     }
-    a:hover {
-      text-decoration: underline;
+
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -52,43 +112,37 @@
 
   <header>
     <h1>Mohamed Atiaa</h1>
-    <p>Cybersecurity Researcher | Malware Analysis | Reverse Engineering</p>
+    <div id="typed-text"></div>
   </header>
 
   <main>
     <section>
-      <h2>About Me</h2>
-      <p>I’m a cybersecurity researcher focused on malware analysis, reverse engineering, and offensive security techniques. This website showcases my research work and ongoing projects.</p>
-    </section>
-
-    <section>
       <h2>🔬 Research Projects</h2>
 
-      <div class="research-item">
-        <h3>WannaCry Ransomware Analysis</h3>
-        <p>A detailed static and dynamic analysis of the WannaCry ransomware, including encryption logic, kill switch mechanism, and propagation methods.</p>
-        <a href="#">Read Full Report (PDF)</a>
+      <div class="card">
+        <h3>🛡️ WannaCry Ransomware Analysis</h3>
+        <p>Static + dynamic analysis of the WannaCry ransomware including payload structure, encryption logic, and kill switch discovery.</p>
+        <a href="#">View Report (PDF)</a>
       </div>
 
-      <div class="research-item">
-        <h3>GPU-Based Malware Execution</h3>
-        <p>Exploring the possibility of executing shellcode using GPU (OpenCL) to evade traditional detection systems. Includes proof-of-concept code and explanation.</p>
-        <a href="#">Project Repository</a>
+      <div class="card">
+        <h3>⚙️ GPU Shellcode Execution</h3>
+        <p>Innovative approach to execute malware payloads using OpenCL (GPU). Proof-of-concept research with code and analysis.</p>
+        <a href="#">Explore Project</a>
       </div>
 
-      <div class="research-item">
-        <h3>MR Security Platform</h3>
-        <p>Building an interactive malware analysis and reporting platform for students and professionals. Supports multiple analysis phases with automated reporting.</p>
-        <a href="#">Live Demo / GitHub</a>
+      <div class="card">
+        <h3>🧠 MR Security Platform</h3>
+        <p>A full malware analysis environment with automation, live analysis dashboards, and smart reporting system.</p>
+        <a href="#">Live Demo</a>
       </div>
     </section>
 
     <section>
-      <h2>📄 Publications & Reports</h2>
+      <h2>📄 Publications</h2>
       <ul>
-        <li><strong>Memory Payload Extraction Techniques</strong> - Presented at CTFX 2025</li>
-        <li><strong>Obfuscation and Evasion in Modern Malware</strong> - In progress</li>
-        <li><strong>Using YARA for Static Malware Classification</strong> - PDF coming soon</li>
+        <li><strong>Memory Payload Extraction Techniques</strong> – CTFX 2025</li>
+        <li><strong>Advanced Malware Obfuscation</strong> – In progress</li>
       </ul>
     </section>
 
@@ -100,8 +154,40 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 Mohamed Atiaa — All Rights Reserved</p>
+    <p>© 2025 Mohamed Atiaa | All rights reserved</p>
   </footer>
 
+  <script>
+    // Typing animation
+    const words = ["Cybersecurity Researcher", "Malware Analyst", "Reverse Engineer", "CTF Player"];
+    let i = 0, j = 0, currentWord = '', isDeleting = false;
+
+    const typeEffect = () => {
+      const typed = document.getElementById("typed-text");
+
+      if (i < words.length) {
+        if (!isDeleting && j <= words[i].length) {
+          currentWord = words[i].substring(0, j++);
+        } else if (isDeleting && j >= 0) {
+          currentWord = words[i].substring(0, j--);
+        }
+
+        typed.textContent = currentWord;
+
+        if (!isDeleting && j === words[i].length) {
+          isDeleting = true;
+          setTimeout(typeEffect, 1000);
+        } else if (isDeleting && j === 0) {
+          isDeleting = false;
+          i = (i + 1) % words.length;
+          setTimeout(typeEffect, 500);
+        } else {
+          setTimeout(typeEffect, isDeleting ? 50 : 100);
+        }
+      }
+    };
+
+    window.onload = typeEffect;
+  </script>
 </body>
 </html>
