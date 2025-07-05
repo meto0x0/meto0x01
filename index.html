@@ -7,128 +7,123 @@
   <meta name="description" content="CTF Writeups, Malware Analysis, and Cybersecurity Articles by Mohamed Atiaa (uwN5zMM)">
   <link rel="icon" href="https://avatars.githubusercontent.com/u/1003503246?v=4" type="image/png">
   <style>
-    /* Animated Gradient Background */
+    /* Egyptian papyrus background and color palette */
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      color: #f4f4f4;
-      background: linear-gradient(120deg, #1e2746, #2d213f, #0b4c5f, #22223b, #3a1c71, #d76d77, #ffaf7b);
-      background-size: 400% 400%;
-      animation: gradientBG 18s ease-in-out infinite;
+      font-family: 'Papyrus', 'IM Fell English', 'Times New Roman', serif;
+      color: #3b2602;
+      background: url('https://www.transparenttextures.com/patterns/papyrus.png'), linear-gradient(120deg, #f6e6b4 0%, #f1dca7 100%);
+      background-size: auto, cover;
+      background-repeat: repeat, no-repeat;
       scroll-behavior: smooth;
-    }
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
     }
     header {
       text-align: center;
-      padding: 3rem 1rem 2rem 1rem;
+      padding: 2.5rem 1rem 1.5rem 1rem;
       position: relative;
       z-index: 2;
+      background: rgba(245, 222, 179, 0.7);
+      border-bottom: 6px solid #c19a5b;
+      box-shadow: 0 2px 8px #c19a5b44;
     }
     header h1 {
-      font-size: 3em;
+      font-family: 'Papyrus', 'IM Fell English', serif;
+      font-size: 2.7em;
       margin: 0;
       font-weight: bold;
-      letter-spacing: 3px;
-      text-shadow: 0 2px 16px #0008;
-      background: linear-gradient(90deg, #61dafb, #ffaf7b, #d76d77, #3a1c71);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: textGlow 3s infinite alternate;
-    }
-    @keyframes textGlow {
-      from { text-shadow: 0 2px 16px #0008, 0 0 8px #61dafb44; }
-      to   { text-shadow: 0 2px 32px #d76d77bb, 0 0 18px #ffaf7b88; }
+      letter-spacing: 4px;
+      color: #a87b29;
+      text-shadow: 0 2px 12px #fff6, 0 1px 0 #c19a5b, 2px 2px 0 #f1dca7;
+      border-bottom: 2px solid #a87b29;
+      display: inline-block;
+      padding-bottom: 0.12em;
     }
     header p {
       margin: 1em 0 0 0;
-      color: #fff9;
-      font-size: 1.5em;
-      text-shadow: 0 1px 8px #0007;
+      color: #a87b29;
+      font-size: 1.35em;
+      text-shadow: 0 1px 8px #fff2;
+      font-family: 'IM Fell English', 'Papyrus', serif;
+      letter-spacing: 2px;
     }
     nav {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.2rem;
       margin: 2rem 0 1.5rem 0;
       flex-wrap: wrap;
     }
     nav a {
       text-decoration: none;
       color: #fff;
-      background: linear-gradient(90deg, #61dafb, #3a1c71);
+      background: linear-gradient(90deg, #a87b29 80%, #c19a5b 100%);
       padding: 0.9em 2.2em;
-      border-radius: 50px;
-      font-size: 1.25em;
-      box-shadow: 0 3px 16px #1e274655;
+      border-radius: 40px;
+      font-size: 1.15em;
+      font-family: 'Papyrus', 'IM Fell English', serif;
       font-weight: bold;
-      letter-spacing: 1px;
-      transition: transform 0.13s, background 0.18s, color 0.18s, box-shadow 0.18s;
-      border: 2px solid #61dafb66;
-      position: relative;
+      letter-spacing: 1.5px;
+      border: 2px solid #c19a5b;
+      box-shadow: 0 2px 8px #b99b4a55;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.13s;
       outline: none;
     }
-    nav a:focus {
-      box-shadow: 0 0 0 3px #ffaf7b99;
-    }
     nav a:hover, nav a:focus-visible {
-      color: #3a1c71;
-      background: #fff;
-      transform: scale(1.09) translateY(-3px);
-      border-color: #3a1c71bb;
-      z-index: 2;
-      box-shadow: 0 6px 24px #3a1c7177;
+      color: #a87b29;
+      background: #fff7e3;
+      border-color: #a87b29;
+      box-shadow: 0 6px 24px #a87b2955;
+      transform: scale(1.08) translateY(-2px);
     }
     .typewriter {
-      width: max-content;
-      font-family: 'Fira Mono', 'Consolas', monospace;
-      color: #ffaf7b;
-      font-size: 1.2em;
+      font-family: 'IM Fell English', 'Papyrus', serif;
+      color: #a87b29;
+      font-size: 1.18em;
       margin: 0 auto 2em auto;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 3px solid #ffaf7b;
+      border-right: 3px solid #a87b29;
+      width: max-content;
       animation:
-        typing 2.7s steps(32, end) 1,
+        typing 2.7s steps(38, end) 1,
         blink 0.8s step-end infinite alternate;
     }
     @keyframes typing {
       from { width: 0; }
-      to { width: 24em; }
+      to { width: 26em; }
     }
     @keyframes blink {
       50% { border-color: transparent; }
     }
     main {
-      max-width: 820px;
+      max-width: 900px;
       margin: 2.5rem auto 2rem auto;
-      background: rgba(18,19,31,0.92);
+      background: rgba(245, 231, 179, 0.86);
       border-radius: 1.5em;
       padding: 2.7em 2em 2em 2em;
-      box-shadow: 0 8px 40px #0c091c88, 0 1.5px 8px #0008;
+      box-shadow: 0 8px 40px #c19a5b44, 0 1.5px 8px #b99b4a33;
       position: relative;
       z-index: 1;
-      backdrop-filter: blur(2px);
+      border: 2px solid #c19a5b;
     }
     section {
       margin-bottom: 2.2em;
     }
     h2 {
-      font-size: 2em;
+      font-size: 1.7em;
       margin-bottom: 0.5em;
-      color: #61dafb;
-      border-left: 6px solid #ffaf7b;
+      color: #a87b29;
+      border-left: 6px solid #e2c275;
       padding-left: 0.5em;
-      letter-spacing: 1px;
-      text-shadow: 0 1px 8px #0006;
-      position: relative;
+      letter-spacing: 1.1px;
+      text-shadow: 0 1px 8px #fff6;
+      font-family: 'Papyrus', 'IM Fell English', serif;
+      background: linear-gradient(90deg, #f6e6b4 80%, #e1c474 100%);
+      border-radius: 8px 30px 30px 8px;
     }
     h2 .emoji {
-      font-size: 1.2em;
+      font-size: 1.1em;
       margin-right: 0.3em;
       vertical-align: -0.1em;
     }
@@ -138,20 +133,21 @@
     li {
       margin-bottom: 0.7em;
       font-size: 1.09em;
+      font-family: 'IM Fell English', 'Papyrus', serif;
     }
     .wow-list li::before {
-      content: "★";
-      color: #ffaf7b;
+      content: "𓂀"; /* Egyptian Eye of Horus symbol */
+      color: #b99b4a;
       margin-right: 0.55em;
-      font-size: 0.98em;
-      vertical-align: -0.04em;
-      filter: drop-shadow(0 1px 3px #3a1c7150);
+      font-size: 1.13em;
+      vertical-align: -0.07em;
+      filter: drop-shadow(0 1px 3px #e2c27550);
     }
     .update-list li::before {
-      content: "⏳";
-      color: #61dafb;
+      content: "𓃰"; /* Egyptian bull symbol */
+      color: #a87b29;
       margin-right: 0.4em;
-      font-size: 1em;
+      font-size: 1.15em;
       vertical-align: -0.1em;
     }
     .about-me {
@@ -165,20 +161,21 @@
       width: 110px;
       height: 110px;
       border-radius: 50%;
-      background: linear-gradient(120deg, #3a1c71 40%, #d76d77 100%);
-      border: 5px solid #fff2;
-      box-shadow: 0 3px 18px #d76d7755;
+      background: linear-gradient(120deg, #e2c275 40%, #b99b4a 100%);
+      border: 4px solid #a87b29;
+      box-shadow: 0 3px 18px #e2c27555;
       object-fit: cover;
       margin-bottom: 0.5em;
       transition: box-shadow 0.2s;
     }
     .avatar:hover {
-      box-shadow: 0 8px 32px #ffaf7ba0, 0 0 0 4px #61dafb90;
+      box-shadow: 0 4px 20px #e2c275a0, 0 0 0 3px #c19a5baa;
     }
     .about-text {
       flex: 1;
-      font-size: 1.15em;
-      min-width: 220px;
+      font-size: 1.12em;
+      min-width: 230px;
+      font-family: 'IM Fell English', 'Papyrus', serif;
     }
     .about-links {
       margin-top: 1em;
@@ -189,54 +186,58 @@
     }
     .about-links a {
       display: inline-block;
-      background: linear-gradient(90deg, #61dafb, #3a1c71);
-      color: #fff;
+      background: linear-gradient(90deg, #c19a5b, #e2c275);
+      color: #3b2602;
       text-decoration: none;
       padding: 0.45em 1.1em;
-      border-radius: 30px;
+      border-radius: 24px;
       font-weight: bold;
       transition: background 0.18s, color 0.18s, box-shadow 0.16s;
-      border: 2px solid #61dafb66;
+      border: 2px solid #b99b4a;
       font-size: 1em;
-      box-shadow: 0 2px 8px #3a1c7122;
+      box-shadow: 0 2px 7px #c19a5b33;
+      font-family: 'Papyrus', 'IM Fell English', serif;
     }
     .about-links a:hover, .about-links a:focus {
-      color: #3a1c71;
-      background: #fff;
-      border-color: #3a1c71bb;
-      box-shadow: 0 4px 16px #3a1c7180;
+      color: #fff;
+      background: #a87b29;
+      border-color: #c19a5b;
+      box-shadow: 0 4px 16px #a87b297c;
     }
     .about-badge {
       display: inline-block;
-      background: linear-gradient(90deg, #ffaf7b, #d76d77);
-      color: #22223b;
-      padding: 0.2em 0.8em;
+      background: linear-gradient(90deg, #e2c275, #f6e6b4);
+      color: #3b2602;
+      padding: 0.2em 0.7em;
       border-radius: 12px;
-      font-size: 1.02em;
+      font-size: 1.03em;
       margin-right: 0.6em;
-      box-shadow: 0 2px 6px #d76d7722;
+      box-shadow: 0 2px 6px #f1dca722;
       font-weight: bold;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
+      font-family: 'Papyrus', 'IM Fell English', serif;
+      border: 1.5px solid #c19a5b;
     }
     code {
-      background: #222c;
-      color: #ffaf7b;
+      background: #f6e6b4;
+      color: #a87b29;
       padding: 0.2em 0.5em;
       border-radius: 4px;
       font-size: 1em;
+      font-family: 'Consolas', 'Menlo', monospace;
     }
     .scroll-top {
       position: fixed;
       right: 1.5em;
       bottom: 1.5em;
-      background: linear-gradient(120deg, #61dafb, #3a1c71);
-      color: #fff;
+      background: linear-gradient(120deg, #e2c275, #b99b4a);
+      color: #a87b29;
       border: none;
       border-radius: 50%;
       width: 50px;
       height: 50px;
       font-size: 2em;
-      box-shadow: 0 2px 16px #3a1c7166;
+      box-shadow: 0 2px 16px #c19a5b66;
       cursor: pointer;
       z-index: 50;
       transition: background 0.2s, color 0.2s, transform 0.12s;
@@ -254,11 +255,15 @@
     }
     footer {
       text-align: center;
-      color: #ddd8;
+      color: #a87b29;
       margin: 3em 0 1em 0;
-      font-size: 1.1em;
-      text-shadow: 0 1px 4px #0006;
+      font-size: 1.08em;
+      text-shadow: 0 1px 4px #fff6;
       letter-spacing: 1px;
+      font-family: 'IM Fell English', 'Papyrus', serif;
+      border-top: 3px double #c19a5b;
+      background: rgba(245, 231, 179, 0.7);
+      padding: 1em 0 0.7em 0;
     }
     @media (max-width: 650px) {
       main { padding: 1.2em 0.3em; }
@@ -266,19 +271,25 @@
       nav { flex-direction: column; gap: 1.2rem; }
       header { padding: 2rem 0.5rem 1.2rem 0.5rem; }
       h1 { font-size: 2.1em; }
-      h2 { font-size: 1.3em; }
+      h2 { font-size: 1.1em; }
       .avatar { width: 80px; height: 80px; }
     }
     /* Accessibility: high contrast for focus */
     a:focus-visible, .about-links a:focus-visible, nav a:focus-visible {
-      outline: 2.5px solid #ffaf7b;
+      outline: 2.5px solid #e2c275;
       outline-offset: 2px;
+    }
+    /* Egyptian border for main */
+    main {
+      border-width: 2.5px;
+      border-style: double;
+      border-color: #a87b29 #e2c275 #c19a5b #c19a5b;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>uwN5zMM Writeups & Analysis</h1>
+    <h1>𓂀 uwN5zMM Writeups & Analysis 𓂀</h1>
     <p>CTF Writeups · Malware Analysis · Cybersecurity Articles</p>
   </header>
   <nav>
@@ -290,7 +301,7 @@
   <div class="typewriter" id="typewriter"></div>
   <main>
     <section>
-      <h2><span class="emoji">🚩</span>Welcome!</h2>
+      <h2><span class="emoji">𓅓</span>Welcome!</h2>
       <ul class="wow-list">
         <li>High-quality writeups of CTF challenges, including step-by-step solutions.</li>
         <li>In-depth malware analysis with technical breakdowns and IOCs.</li>
@@ -299,7 +310,7 @@
       </ul>
     </section>
     <section>
-      <h2><span class="emoji">👨‍💻</span>About Me</h2>
+      <h2><span class="emoji">𓂝</span>About Me</h2>
       <div class="about-me">
         <img src="https://avatars.githubusercontent.com/u/1003503246?v=4" alt="uwN5zMM avatar" class="avatar">
         <div class="about-text">
@@ -322,7 +333,7 @@
       </div>
     </section>
     <section>
-      <h2><span class="emoji">📝</span>Latest Updates</h2>
+      <h2><span class="emoji">𓋹</span>Latest Updates</h2>
       <ul class="update-list">
         <li>2025-07-05: 🚀 Site launched!</li>
         <li>2025-07-04: 🏴‍☠️ HTB EasyBox writeup published</li>
@@ -330,7 +341,7 @@
       </ul>
     </section>
     <section>
-      <h2><span class="emoji">🔗</span>Start Exploring</h2>
+      <h2><span class="emoji">𓊹</span>Start Exploring</h2>
       <ul>
         <li><a href="writeups/">Browse all CTF writeups &rarr;</a></li>
         <li><a href="malware-analysis/">See malware analysis reports &rarr;</a></li>
@@ -338,21 +349,23 @@
       </ul>
     </section>
   </main>
-  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">𓅓</button>
   <footer>
     &copy; 2025 uwN5zMM &mdash; Powered by
-    <a href="https://pages.github.com/" style="color:#61dafb;" target="_blank" rel="noopener">GitHub Pages</a>
+    <a href="https://pages.github.com/" style="color:#a87b29;" target="_blank" rel="noopener">GitHub Pages</a>
+    <br>
+    <span style="font-size:1.5em;">𓋹𓂀𓂝𓊹</span>
   </footer>
   <script>
     // Typewriter welcome message
-    const msg = "Welcome to a journey of hacking, learning, and cybersecurity excellence!";
+    const msg = "𓅓 Welcome to the land of knowledge, hacking, and cybersecurity mastery! 𓂀";
     let i = 0;
     const tw = document.getElementById('typewriter');
     function typeWriter() {
       if (i <= msg.length) {
         tw.textContent = msg.slice(0, i);
         i++;
-        setTimeout(typeWriter, 38);
+        setTimeout(typeWriter, 41);
       }
     }
     typeWriter();
@@ -368,5 +381,7 @@
     });
     scrollBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
   </script>
+  <!-- If Papyrus is not available, suggest a Google Font alternative for Egyptian feel -->
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
 </body>
 </html>
