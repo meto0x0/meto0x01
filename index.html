@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>uwN5zMM Writeups & Analysis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CTF Writeups, Malware Analysis, and Cybersecurity Articles by Mohamed Atiaa (uwN5zMM)">
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/1003503246?v=4" type="image/png">
   <style>
     /* Animated Gradient Background */
     body {
@@ -14,6 +16,7 @@
       background: linear-gradient(120deg, #1e2746, #2d213f, #0b4c5f, #22223b, #3a1c71, #d76d77, #ffaf7b);
       background-size: 400% 400%;
       animation: gradientBG 18s ease-in-out infinite;
+      scroll-behavior: smooth;
     }
     @keyframes gradientBG {
       0% {background-position: 0% 50%;}
@@ -35,6 +38,11 @@
       background: linear-gradient(90deg, #61dafb, #ffaf7b, #d76d77, #3a1c71);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: textGlow 3s infinite alternate;
+    }
+    @keyframes textGlow {
+      from { text-shadow: 0 2px 16px #0008, 0 0 8px #61dafb44; }
+      to   { text-shadow: 0 2px 32px #d76d77bb, 0 0 18px #ffaf7b88; }
     }
     header p {
       margin: 1em 0 0 0;
@@ -59,16 +67,41 @@
       box-shadow: 0 3px 16px #1e274655;
       font-weight: bold;
       letter-spacing: 1px;
-      transition: transform 0.13s, background 0.18s, color 0.18s;
+      transition: transform 0.13s, background 0.18s, color 0.18s, box-shadow 0.18s;
       border: 2px solid #61dafb66;
       position: relative;
+      outline: none;
     }
-    nav a:hover, nav a:focus {
+    nav a:focus {
+      box-shadow: 0 0 0 3px #ffaf7b99;
+    }
+    nav a:hover, nav a:focus-visible {
       color: #3a1c71;
       background: #fff;
       transform: scale(1.09) translateY(-3px);
       border-color: #3a1c71bb;
       z-index: 2;
+      box-shadow: 0 6px 24px #3a1c7177;
+    }
+    .typewriter {
+      width: max-content;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      color: #ffaf7b;
+      font-size: 1.2em;
+      margin: 0 auto 2em auto;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #ffaf7b;
+      animation:
+        typing 2.7s steps(32, end) 1,
+        blink 0.8s step-end infinite alternate;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 24em; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
     main {
       max-width: 820px;
@@ -92,6 +125,12 @@
       padding-left: 0.5em;
       letter-spacing: 1px;
       text-shadow: 0 1px 8px #0006;
+      position: relative;
+    }
+    h2 .emoji {
+      font-size: 1.2em;
+      margin-right: 0.3em;
+      vertical-align: -0.1em;
     }
     ul {
       padding-left: 1.4em;
@@ -120,20 +159,26 @@
       align-items: center;
       gap: 1.5em;
       flex-wrap: wrap;
+      margin-bottom: 1.2em;
     }
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       background: linear-gradient(120deg, #3a1c71 40%, #d76d77 100%);
       border: 5px solid #fff2;
       box-shadow: 0 3px 18px #d76d7755;
       object-fit: cover;
       margin-bottom: 0.5em;
+      transition: box-shadow 0.2s;
+    }
+    .avatar:hover {
+      box-shadow: 0 8px 32px #ffaf7ba0, 0 0 0 4px #61dafb90;
     }
     .about-text {
       flex: 1;
       font-size: 1.15em;
+      min-width: 220px;
     }
     .about-links {
       margin-top: 1em;
@@ -150,14 +195,28 @@
       padding: 0.45em 1.1em;
       border-radius: 30px;
       font-weight: bold;
-      transition: background 0.18s, color 0.18s;
+      transition: background 0.18s, color 0.18s, box-shadow 0.16s;
       border: 2px solid #61dafb66;
       font-size: 1em;
+      box-shadow: 0 2px 8px #3a1c7122;
     }
     .about-links a:hover, .about-links a:focus {
       color: #3a1c71;
       background: #fff;
       border-color: #3a1c71bb;
+      box-shadow: 0 4px 16px #3a1c7180;
+    }
+    .about-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #ffaf7b, #d76d77);
+      color: #22223b;
+      padding: 0.2em 0.8em;
+      border-radius: 12px;
+      font-size: 1.02em;
+      margin-right: 0.6em;
+      box-shadow: 0 2px 6px #d76d7722;
+      font-weight: bold;
+      letter-spacing: 0.5px;
     }
     code {
       background: #222c;
@@ -165,6 +224,33 @@
       padding: 0.2em 0.5em;
       border-radius: 4px;
       font-size: 1em;
+    }
+    .scroll-top {
+      position: fixed;
+      right: 1.5em;
+      bottom: 1.5em;
+      background: linear-gradient(120deg, #61dafb, #3a1c71);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 2em;
+      box-shadow: 0 2px 16px #3a1c7166;
+      cursor: pointer;
+      z-index: 50;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .scroll-top.show {
+      display: flex;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.7);}
+      to   { opacity: 1; transform: scale(1);}
     }
     footer {
       text-align: center;
@@ -181,6 +267,12 @@
       header { padding: 2rem 0.5rem 1.2rem 0.5rem; }
       h1 { font-size: 2.1em; }
       h2 { font-size: 1.3em; }
+      .avatar { width: 80px; height: 80px; }
+    }
+    /* Accessibility: high contrast for focus */
+    a:focus-visible, .about-links a:focus-visible, nav a:focus-visible {
+      outline: 2.5px solid #ffaf7b;
+      outline-offset: 2px;
     }
   </style>
 </head>
@@ -193,39 +285,44 @@
     <a href="writeups/">CTF Writeups</a>
     <a href="malware-analysis/">Malware Analysis</a>
     <a href="articles/">Articles</a>
-    <a href="https://github.com/uwN5zMM" target="_blank">GitHub Profile</a>
+    <a href="https://github.com/uwN5zMM" target="_blank" rel="noopener">GitHub Profile</a>
   </nav>
+  <div class="typewriter" id="typewriter"></div>
   <main>
     <section>
-      <h2>Welcome!</h2>
+      <h2><span class="emoji">🚩</span>Welcome!</h2>
       <ul class="wow-list">
         <li>High-quality writeups of CTF challenges, including step-by-step solutions.</li>
         <li>In-depth malware analysis with technical breakdowns and IOCs.</li>
         <li>Guides, tools, and tips for cybersecurity enthusiasts.</li>
+        <li>Accessible, well-organized, and <span class="about-badge">Open Source</span> content.</li>
       </ul>
     </section>
     <section>
-      <h2>About Me</h2>
+      <h2><span class="emoji">👨‍💻</span>About Me</h2>
       <div class="about-me">
         <img src="https://avatars.githubusercontent.com/u/1003503246?v=4" alt="uwN5zMM avatar" class="avatar">
         <div class="about-text">
           <strong>uwN5zMM (Mohamed Atiaa)</strong><br>
-          <em>Cybersecurity Researcher | CTF Player | Malware Analyst</em>
+          <span class="about-badge">Cybersecurity Researcher</span>
+          <span class="about-badge">CTF Player</span>
+          <span class="about-badge">Malware Analyst</span>
           <p>
             I am passionate about cybersecurity, digital forensics, and sharing knowledge with the infosec community.<br>
             I specialize in Capture The Flag (CTF) competitions and malware reverse engineering.<br>
-            My goal is to explore vulnerabilities, dissect malware, and make cybersecurity knowledge accessible and practical.
+            My goal is to explore vulnerabilities, dissect malware, and make cybersecurity knowledge accessible and practical.<br>
+            <em>Let's connect and learn together!</em>
           </p>
           <div class="about-links">
             <a href="mailto:uwN5zMM@protonmail.com" target="_blank">Email</a>
-            <a href="https://github.com/uwN5zMM" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/mohamed-atiaa-185202299/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/uwN5zMM" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/mohamed-atiaa-185202299/" target="_blank" rel="noopener">LinkedIn</a>
           </div>
         </div>
       </div>
     </section>
     <section>
-      <h2>Latest Updates</h2>
+      <h2><span class="emoji">📝</span>Latest Updates</h2>
       <ul class="update-list">
         <li>2025-07-05: 🚀 Site launched!</li>
         <li>2025-07-04: 🏴‍☠️ HTB EasyBox writeup published</li>
@@ -233,7 +330,7 @@
       </ul>
     </section>
     <section>
-      <h2>Start Exploring</h2>
+      <h2><span class="emoji">🔗</span>Start Exploring</h2>
       <ul>
         <li><a href="writeups/">Browse all CTF writeups &rarr;</a></li>
         <li><a href="malware-analysis/">See malware analysis reports &rarr;</a></li>
@@ -241,8 +338,35 @@
       </ul>
     </section>
   </main>
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
   <footer>
-    &copy; 2025 uwN5zMM &mdash; Powered by <a href="https://pages.github.com/" style="color:#61dafb;" target="_blank">GitHub Pages</a>
+    &copy; 2025 uwN5zMM &mdash; Powered by
+    <a href="https://pages.github.com/" style="color:#61dafb;" target="_blank" rel="noopener">GitHub Pages</a>
   </footer>
+  <script>
+    // Typewriter welcome message
+    const msg = "Welcome to a journey of hacking, learning, and cybersecurity excellence!";
+    let i = 0;
+    const tw = document.getElementById('typewriter');
+    function typeWriter() {
+      if (i <= msg.length) {
+        tw.textContent = msg.slice(0, i);
+        i++;
+        setTimeout(typeWriter, 38);
+      }
+    }
+    typeWriter();
+
+    // Scroll-to-top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add('show');
+      } else {
+        scrollBtn.classList.remove('show');
+      }
+    });
+    scrollBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+  </script>
 </body>
 </html>
