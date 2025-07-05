@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:wght@400;700&family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Egyptian papyrus background and color palette */
     body {
       margin: 0;
       min-height: 100vh;
@@ -114,7 +115,6 @@
       cursor: default;
       pointer-events: none;
     }
-    /* Navbar underline animation */
     nav a::after {
       content: '';
       display: block;
@@ -127,31 +127,130 @@
     nav a:hover::after, nav a:focus-visible::after {
       width: 100%;
     }
-    .typewriter {
-      font-family: 'Fira Mono', 'IM Fell English', monospace;
+    /* Floating action button for feedback */
+    .fab-feedback {
+      position: fixed;
+      bottom: 2.2em;
+      left: 2em;
+      background: linear-gradient(120deg, #e2c275 50%, #a87b29 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 58px;
+      height: 58px;
+      font-size: 2em;
+      box-shadow: 0 2px 16px #e2c27599;
+      cursor: pointer;
+      z-index: 110;
+      transition: background 0.2s, color 0.2s, transform 0.12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.93;
+    }
+    .fab-feedback:hover, .fab-feedback:focus {
+      background: #a87b29;
+      color: #fff;
+      transform: scale(1.10) rotate(-6deg);
+      opacity: 1;
+    }
+    /* Feedback modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+      animation: fadeInModal 0.36s;
+    }
+    @keyframes fadeInModal {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    .modal-content {
+      background: #f6e6b4;
+      border-radius: 1.3em;
+      padding: 2.5em 2em 1.2em 2em;
+      box-shadow: 0 8px 40px #c19a5b77, 0 1.5px 8px #b99b4a33;
+      min-width: 300px;
+      max-width: 90vw;
+      border: 2.5px solid #c19a5b;
+      text-align: center;
+      position: relative;
+      font-family: 'IM Fell English', 'Papyrus', serif;
+      color: #3b2602;
+      animation: popIn 0.36s;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.87);}
+      to { transform: scale(1);}
+    }
+    .modal-content h3 {
+      margin-top: 0;
       color: #a87b29;
-      font-size: 1.18em;
-      margin: 0 auto 2em auto;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #a87b29;
-      width: max-content;
-      letter-spacing: 0.05em;
-      animation:
-        typing 2.7s steps(44, end) 1,
-        blink 0.8s step-end infinite alternate;
-      background: rgba(246, 230, 180, 0.7);
-      padding: 0.2em 0.8em;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px #e2c27555;
     }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 32em; }
+    .modal-content textarea {
+      width: 98%; min-height: 70px;
+      margin: 0.7em 0 0.6em 0;
+      border-radius: 9px;
+      border: 1.5px solid #e2c275;
+      font-family: 'Fira Mono', 'IM Fell English', monospace;
+      font-size: 1.07em;
+      padding: 0.4em 0.6em;
+      resize: vertical;
+      background: #fffbe8;
+      color: #3b2602;
+      box-shadow: 0 2px 8px #e2c27522;
+      outline: none;
+      transition: border 0.2s;
     }
-    @keyframes blink {
-      50% { border-color: transparent; }
+    .modal-content textarea:focus {
+      border: 2px solid #a87b29;
     }
+    .modal-content button {
+      background: linear-gradient(90deg, #a87b29 80%, #c19a5b 100%);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 0.5em 1.3em;
+      font-family: 'IM Fell English', serif;
+      font-size: 1.08em;
+      font-weight: bold;
+      margin-top: 0.4em;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      box-shadow: 0 2px 7px #c19a5b33;
+    }
+    .modal-content button:hover, .modal-content button:focus {
+      background: #e2c275;
+      color: #a87b29;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.7em; right: 1em;
+      font-size: 1.2em;
+      color: #a87b29;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+    .modal-close:hover {
+      color: #c19a5b;
+    }
+    .modal .thankyou {
+      color: #3b2602;
+      font-size: 1.15em;
+      margin-top: 1.2em;
+      animation: fadeIn 0.7s;
+    }
+    /* Main papyrus border and decorative Egyptian icons */
     main {
       max-width: 900px;
       margin: 2.5rem auto 2rem auto;
@@ -244,7 +343,6 @@
       from { filter: brightness(1);}
       to   { filter: brightness(1.25);}
     }
-    /* Timeline style for updates */
     .update-list {
       border-left: 3px dashed #e2c275;
       padding-left: 1.2em;
@@ -455,7 +553,7 @@
       opacity: 1;
       pointer-events: auto;
     }
-
+    /* Responsive */
     @media (max-width: 650px) {
       main { padding: 1.2em 0.3em; }
       .about-me { flex-direction: column; align-items: flex-start; }
@@ -465,6 +563,7 @@
       h2 { font-size: 1.1em; }
       .avatar { width: 80px; height: 80px; }
       main:before, main:after { font-size: 1.3em;}
+      .fab-feedback { left: 1em; bottom: 1em; width: 46px; height: 46px; font-size: 1.5em;}
     }
     a:focus-visible, .about-links a:focus-visible, nav a:focus-visible {
       outline: 2.5px solid #e2c275;
@@ -542,6 +641,18 @@
     </section>
   </main>
   <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">𓅓</button>
+  <button class="fab-feedback" id="openFeedback" aria-label="Send feedback" title="Send feedback">𓉻</button>
+  <div class="modal" id="feedbackModal" tabindex="-1">
+    <div class="modal-content">
+      <button class="modal-close" id="closeFeedback" aria-label="Close feedback">&times;</button>
+      <h3>𓉻 Feedback</h3>
+      <p style="margin:0;">Help me improve this site!<br>What do you like? What can be better?</p>
+      <textarea id="feedbackText" placeholder="Your feedback..."></textarea>
+      <br>
+      <button id="submitFeedback">Send</button>
+      <div class="thankyou" id="feedbackThankyou" style="display:none;">𓂀 Thank you for your feedback! 𓂀</div>
+    </div>
+  </div>
   <footer>
     &copy; 2025 uwN5zMM &mdash; Powered by
     <a href="https://pages.github.com/" style="color:#a87b29;" target="_blank" rel="noopener">GitHub Pages</a>
@@ -582,6 +693,25 @@
         let tip = el.querySelector('.tooltiptext');
         if (tip) tip.style.visibility = '';
       });
+    });
+
+    // Feedback modal logic
+    const feedbackBtn = document.getElementById('openFeedback');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const closeFeedback = document.getElementById('closeFeedback');
+    const submitFeedback = document.getElementById('submitFeedback');
+    const feedbackText = document.getElementById('feedbackText');
+    const feedbackThankyou = document.getElementById('feedbackThankyou');
+    feedbackBtn.onclick = () => { feedbackModal.classList.add('active'); feedbackText.focus(); };
+    closeFeedback.onclick = () => { feedbackModal.classList.remove('active'); feedbackThankyou.style.display='none'; feedbackText.value=''; };
+    feedbackModal.onclick = (e) => { if (e.target === feedbackModal) closeFeedback.onclick(); };
+    submitFeedback.onclick = () => {
+      feedbackThankyou.style.display = 'block';
+      feedbackText.value = '';
+      setTimeout(() => { feedbackModal.classList.remove('active'); feedbackThankyou.style.display='none'; }, 1700);
+    };
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") feedbackModal.classList.remove('active');
     });
   </script>
 </body>
