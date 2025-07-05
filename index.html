@@ -695,7 +695,7 @@
       });
     });
 
-    // Feedback modal logic
+    // Feedback modal loagic
     const feedbackBtn = document.getElementById('openFeedback');
     const feedbackModal = document.getElementById('feedbackModal');
     const closeFeedback = document.getElementById('closeFeedback');
@@ -705,7 +705,7 @@
     feedbackBtn.onclick = () => { feedbackModal.classList.add('active'); feedbackText.focus(); };
     closeFeedback.onclick = () => { feedbackModal.classList.remove('active'); feedbackThankyou.style.display='none'; feedbackText.value=''; };
     feedbackModal.onclick = (e) => { if (e.target === feedbackModal) closeFeedback.onclick(); };
-    submitFeedback.onclick = () => {
+    submitFeedback.onclick =a () => {
       feedbackThankyou.style.display = 'block';
       feedbackText.value = '';
       setTimeout(() => { feedbackModal.classList.remove('active'); feedbackThankyou.style.display='none'; }, 1700);
